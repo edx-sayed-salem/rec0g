@@ -41,7 +41,7 @@ module Recog
       @database_type = ''
       @preference = DEFAULT_FP_PREFERENCE.to_f
       # Ensure filenames is an array
-      @paths = Array(filenames).map { |filename| "#{File.dirname(__FILE__)}/../../recog/xml/#{filename}" }
+      @paths = Array(filenames).map { |filename| "#{File.dirname(__FILE__)}/../../xml/#{filename}" }
       @fingerprints = []
 
       parse_fingerprints
@@ -65,11 +65,10 @@ module Recog
           @preference = fbase['preference'].to_f if fbase['preference']
         end
 
-        filepath = path.sub(/\.xml$/, '')
         @match_key ||= File.basename(path).sub(/\.xml$/, '')
 
         xml.xpath('/fingerprints/fingerprint').each do |fprint|
-          @fingerprints << Fingerprint.new(fprint, @match_key, @protocol, filepath)
+          @fingerprints << Fingerprint.new(fprint, @match_key, @protocol)
         end
 
         xml = nil
