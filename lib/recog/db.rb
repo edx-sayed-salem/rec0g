@@ -65,7 +65,7 @@ module Recog
           @preference = fbase['preference'].to_f if fbase['preference']
         end
 
-        @match_key ||= File.basename(path).sub(/\.xml$/, '')
+        @match_key = File.basename(path).sub(/\.xml$/, '') || ''
 
         xml.xpath('/fingerprints/fingerprint').each do |fprint|
           @fingerprints << Fingerprint.new(fprint, @match_key, @protocol)
